@@ -1,0 +1,28 @@
+{
+  "name": "Fluent Forms Submission to Email",
+  "notes": "Generic scenario for sending Fluent Forms submissions to email via Make.com",
+  "rootModule": {
+    "id": 1,
+    "module": "webhooks",
+    "operation": "customWebhook",
+    "name": "Catch Hook",
+    "parameters": {
+      "hookName": "Fluent Forms Webhook"
+    },
+    "next": [
+      {
+        "id": 2,
+        "module": "email",
+        "operation": "sendEmail",
+        "name": "Send Email",
+        "parameters": {
+          "to": ["your@email.com"],
+          "from": "you@yourdomain.com",
+          "subject": "New Fluent Form Submission",
+          "contentType": "text/html",
+          "body": "<h2>New Form Submission</h2>\n<p><strong>Form Data:</strong></p>\n<pre>{{JSON.stringify(bundle.payload, null, 2)}}</pre>"
+        }
+      }
+    ]
+  }
+}
